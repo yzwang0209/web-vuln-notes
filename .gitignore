@@ -1,0 +1,7 @@
+# 截图（.png 保留，供报告引用）
+*.zip
+*.7z
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
